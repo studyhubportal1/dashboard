@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GANDHI MEMORIAL GOVT. S.B.V - StudyHub Web Portal</title>
+<link href="logo.png" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:#e9f0ff;color:#222}
+.card{background:white;padding:20px;margin:15px 0;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.1)}
+.btn{background:#1a4ba3;color:white;padding:10px 18px;border-radius:8px;text-decoration:none;display:inline-block;cursor:pointer;margin-top:10px}
+header{background:linear-gradient(135deg,#1a4ba3,#133b82);color:white;text-align:center;padding:30px}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;background:#133b82;padding:10px}
+nav a{color:white;text-decoration:none;font-weight:600;font-size:14px}
+section{padding:20px}
+#mainContent{display:none}
+#loginOverlay{
+position:fixed;
+top:0;left:0;
+width:100%;height:100%;
+background:rgba(0,0,0,0.5);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+#loginBox{
+background:white;
+padding:25px;
+border-radius:15px;
+width:90%;max-width:360px;
+box-shadow:0 4px 20px rgba(0,0,0,0.2);
+text-align:center;
+}
+#loginBox input{
+width:100%;padding:10px;margin-top:10px;border:1px solid #ccc;border-radius:6px;
+}
+
+.btn:hover{background:#0f3a86; transform:scale(1.05);} 
+
+/* Mobile Fixes */
+@media(max-width:600px){
+  header{padding:40px 10px;}
+  header h1{font-size:20px;}
+  header p{font-size:14px;}
+
+  /* Profile Button Mobile Responsive */
+  header div[style*="position:absolute"] a{
+    padding:8px 14px !important;
+    font-size:13px !important;
+    gap:4px;
+    border-radius:8px;
+  }
+
+  nav a{
+    font-size:13px;
+    padding:6px 8px;
+  }
+
+  table{font-size:13px;}
+  table th, table td{padding:6px !important;}
+
+  #loginBox{width:92%;}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN OVERLAY -->
+<div id="loginOverlay">
+  <div id="loginBox">
+    <h2>🔐 Student Login</h2>
+    <input id="roll" type="text" placeholder="Enter ID">
+    <input id="pass" type="password" placeholder="Enter Password">
+    <button class="btn" onclick="login()" style="width:100%;margin-top:15px;">Login</button>
+    <p style="margin-top:10px;font-size:14px;">Use ID: <b></b> & Password: <b></b></p>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent">
+
+<header>
+<img src="logo.png" width="110" />
+<h1>GANDHI MEMORIAL GOVT. S.B.V</h1>
+<p><strong>StudyHub Web Portal</strong></p>
+<div style="position:absolute; top:20px; right:20px;">
+  <a href="student-profile.html" class="btn" style="padding:10px 18px; font-size:14px; display:flex; align-items:center; gap:6px; border-radius:10px; transition:0.2s;">
+  <span style="font-size:16px;">👤</span> Your Profile
+</a>
+  <a href="quiz-portal.html" class="btn" style="padding:10px 18px; font-size:14px; display:flex; align-items:center; gap:6px; border-radius:10px; transition:0.2s;">
+  <span style="font-size:16px;">📝</span> Quiz Portal
+</a>
+</div>
+</header>
+
+<nav>
+<a href="#notices">Notices</a>
+<a href="#timetable">Timetable</a>
+<a href="#homework">All Subjects Notes</a>
+<a href="#materials">Notebook</a>
+<a href="#examplepaper">Annual Exam Practice Papers</a>
+<a href="#gallery">School Images</a>
+<a href="#teachers">Teachers</a>
+<a href="#studentsinfo">Information Of Students</a>
+<a href="#schoolinfo">School Info</a>
+<a href="#contact">Contact Form</a>
+</nav>
+
+<section id="notices">
+<h2>📢 School Notices</h2>
+<div class="card">Complete all English Work Copy Checking on 26th Nov!</div>
+<div class="card">Holiday On 25th Nov!</div>
+<div class="card">
+  <b>UNIT TEST II DATE SHEET</b>
+  <p style="margin-top:5px;">
+    29/11/2025 - IT <br>
+    <br>
+    01/12/2025 - Sanskrit <br>
+    <br>
+    02/12/2025 - Social Science <br>
+    <br>
+    03/12/2025 - Science <br>
+    <br>
+    04/12/2025 - Maths <br>
+    <br>
+    05/12/2025 - Hindi <br>
+    <br>
+    06/12/2025 - English <br> 
+    <br>
+    TIME - 1:00 PM TO 2:00 PM
+
+</section>
+
+<section id="timetable">
+  <h2 style="background: url('classtimetable.png') no-repeat left center; 
+           background-size: 40px 40px; padding-left: 50px;">Class Timetable</h2>
+
+  <div class="table-wrapper" style="overflow-x:auto; margin-top:15px;">
+    <table style="width:100%; border-collapse:collapse; text-align:center; font-size:15px;">
+      <thead>
+        <tr style="background:#1a4ba3; color:white;">
+          <th style="padding:8px; border:1px solid #ddd;">Day</th>
+          <th style="padding:8px; border:1px solid #ddd;">1</th>
+          <th style="padding:8px; border:1px solid #ddd;">2</th>
+          <th style="padding:8px; border:1px solid #ddd;">3</th>
+          <th style="padding:8px; border:1px solid #ddd;">4</th>
+          <th style="padding:8px; border:1px solid #ddd;">5</th>
+          <th style="padding:8px; border:1px solid #ddd;">6</th>
+          <th style="padding:8px; border:1px solid #ddd;">7</th>
+          <th style="padding:8px; border:1px solid #ddd;">8</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td style="padding:8px; border:1px solid #ccc; background:#eef3ff;">Monday</td>
+          <td style="padding:8px; border:1px solid #ccc;">Maths</td>
+          <td style="padding:8px; border:1px solid #ccc;">Sanskrit</td>
+          <td style="padding:8px; border:1px solid #ccc;">Maths</td>
+          <td style="padding:8px; border:1px solid #ccc;">Sanskrit</td>
+          <td style="padding:8px; border:1px solid #ccc;">Science</td>
+          <td style="padding:8px; border:1px solid #ccc;">English</td>
+          <td style="padding:8px; border:1px solid #ccc;">S.S.T</td>
+          <td style="padding:8px; border:1px solid #ccc;">Hindi</td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px; border:1px solid #ccc; background:#eef3ff;">Tuesday</td>
+          <td style="padding:8px; border:1px solid #ccc;">Maths</td>
+          <td style="padding:8px; border:1px solid #ccc;">Sanskrit</td>
+          <td style="padding:8px; border:1px solid #ccc;">Library</td>
+          <td style="padding:8px; border:1px solid #ccc;">Sanskrit</td>
+          <td style="padding:8px; border:1px solid #ccc;">Science</td>
+          <td style="padding:8px; border:1px solid #ccc;">English</td>
+          <td style="padding:8px; border:1px solid #ccc;">S.S.T</td>
+          <td style="padding:8px; border:1px solid #ccc;">Hindi</td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px; border:1px solid #ccc; background:#eef3ff;">Wednesday</td>
+          <td style="padding:8px; border:1px solid #ccc;">Maths</td>
+          <td style="padding:8px; border:1px solid #ccc;">English</td>
+          <td style="padding:8px; border:1px solid #ccc;">Maths</td>
+          <td style="padding:8px; border:1px solid #ccc;">Sanskrit</td>
+          <td style="padding:8px; border:1px solid #ccc;">Science</td>
+          <td style="padding:8px; border:1px solid #ccc;">English</td>
+          <td style="padding:8px; border:1px solid #ccc;">S.S.T</td>
+          <td style="padding:8px; border:1px solid #ccc;">Hindi</td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px; border:1px solid #ccc; background:#eef3ff;">Thursday</td>
+          <td style="padding:8px; border:1px solid #ccc;">Maths</td>
+          <td style="padding:8px; border:1px solid #ccc;">English</td>
+          <td style="padding:8px; border:1px solid #ccc;">I.T</td>
+          <td style="padding:8px; border:1px solid #ccc;">Sanskrit</td>
+          <td style="padding:8px; border:1px solid #ccc;">Science</td>
+          <td style="padding:8px; border:1px solid #ccc;">English</td>
+          <td style="padding:8px; border:1px solid #ccc;">S.S.T</td>
+          <td style="padding:8px; border:1px solid #ccc;">Hindi</td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px; border:1px solid #ccc; background:#eef3ff;">Friday</td>
+          <td style="padding:8px; border:1px solid #ccc;">Maths</td>
+          <td style="padding:8px; border:1px solid #ccc;">S.S.T</td>
+          <td style="padding:8px; border:1px solid #ccc;">I.T</td>
+          <td style="padding:8px; border:1px solid #ccc;">Sanskrit</td>
+          <td style="padding:8px; border:1px solid #ccc;">Science</td>
+          <td style="padding:8px; border:1px solid #ccc;">English</td>
+          <td style="padding:8px; border:1px solid #ccc;">S.S.T</td>
+          <td style="padding:8px; border:1px solid #ccc;">Hindi</td>
+        </tr>
+
+        <tr>
+          <td style="padding:8px; border:1px solid #ccc; background:#eef3ff;">Saturday</td>
+          <td style="padding:8px; border:1px solid #ccc;">Maths</td>
+          <td style="padding:8px; border:1px solid #ccc;">S.S.T</td>
+          <td style="padding:8px; border:1px solid #ccc;">I.T</td>
+          <td style="padding:8px; border:1px solid #ccc;">Sanskrit</td>
+          <td style="padding:8px; border:1px solid #ccc;">Science</td>
+          <td style="padding:8px; border:1px solid #ccc;">English</td>
+          <td style="padding:8px; border:1px solid #ccc;">S.S.T</td>
+          <td style="padding:8px; border:1px solid #ccc;">Hindi</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">Click Below buttons To View Syllabus</div>
+  <a class="btn" href="https://share.google/YnEX0Ia7GM5oolFx6" style="margin-top:15px; display:inline-block;">English Syllabus</a>
+  <a class="btn" href="https://share.google/nRoPvghaFwcCvE6QS" style="margin-top:15px; display:inline-block;">Hindi Syllabus</a>
+  <a class="btn" href="https://share.google/r3423AwWI0da4Ivi9" style="margin-top:15px; display:inline-block;">Maths Syllabus</a>
+  <a class="btn" href="https://share.google/jBgkk9dZoLwRYCKei" style="margin-top:15px; display:inline-block;">Sanskrit Syllabus</a>
+  <a class="btn" href="https://share.google/PRnmPYO5QR5i4ZlXZ" style="margin-top:15px; display:inline-block;">Science Syllabus</a>
+  <a class="btn" href="https://share.google/PegkR0Us92HLr82BA" style="margin-top:15px; display:inline-block;">Social Science Syllabus</a>
+</section>
+
+<section id="homework">
+<h2>📘 All Subjects Notes</h2>
+<div class="card">Science – All Chapters Notes</div>
+<div class="card">Social Science – All Chapters Notes</div>
+<div class="card">Maths – All Chapters Notes</div>
+<div class="card">English – All Chapters Notes</div>
+<div class="card">Hindi – All Chapters Notes</div>
+<div class="card">Sanskrit – All Chapters Notes</div>
+<a class="btn" href="https://drive.google.com/drive/folders/1kACsGFiuz1_kl5-4FLgn6gYsO1qe8nJA">Science Notes</a>
+<a class="btn" href="https://drive.google.com/drive/folders/14Hq9uQ0AebkOigF8soe4tnj_4XttRQMa">Social Science Notes</a>
+<a class="btn" href="https://drive.google.com/drive/folders/1FrAs5apQAci4s6CS4T-T4BkAbtLHJo2j">Maths Notes</a>
+<a class="btn" href="https://drive.google.com/drive/folders/1AfCdnLmi-Qh9fRGXsNUFM2PKqVMw9u-L">English Notes</a>
+<a class="btn" href="https://drive.google.com/drive/folders/1wvAVXFG5In7d3eI87bhw-Lyku-YGXe-0">Hindi Notes</a>
+<a class="btn" href="https://drive.google.com/drive/folders/1AqTbWRVPrd31DiqwQYKhTqYmbLywFDJy">Hindi Notes</a>
+</section>
+
+<section id="examplepaper">
+<h2>📃 Annual Exam Practice Paper 2025</h2>
+<div class="card">Science – Example Paper Click Below Button to View</div>
+<div class="card">Social Science – Example Paper Click Below Button to View</div>
+<div class="card">Maths – Example Paper Click Below Button to View</div>
+<div class="card">English – Example Paper Click Below Button to View</div>
+<div class="card">Hindi – Example Paper Click Below Button to View</div>
+<div class="card">Sanskrit – Example Paper Click Below Button to View</div>
+<a class="btn" href="https://drive.google.com/file/d/1KKb9raXrZm-mqJMbRRpd3Lu63uZtclpt/view?usp=sharing">Science Ex Paper</a>
+<a class="btn" href="https://drive.google.com/file/d/10bnp8e4xalLwlOBw5qaopbayCCOTg08C/view?usp=sharing">Social Science Ex Paper</a>
+<a class="btn" href="https://drive.google.com/file/d/10UGd_nKexmgR_U4BuPCbAhkCjCrWz0dU/view?usp=sharing">Maths Ex Paper</a>
+<a class="btn" href="https://drive.google.com/file/d/111LZXddUXLkAekG5SZyMTYVNdBSlRzPv/view?usp=sharing">English Ex Paper</a>
+<a class="btn" href="https://drive.google.com/file/d/1WYeG8rJbRJDCu-2nn7P5fnQulRiOPg3D/view?usp=sharing">Hindi Ex Paper</a>
+<a class="btn" href="https://drive.google.com/file/d/1X_wv39XMS0Z6UoLCNtBbei6K3N5Sgzbk/view?usp=sharing">Sanskrit Ex Paper</a>
+</section>
+
+<section id="materials">
+<h2>📔 Notebook Work</h2>
+<div class="card">
+  <b>IT All Units</b>
+  <p style="margin-top:5px;">
+    Isme saare IT ke units cover kiye gaye hain including Unit-1 Unit-2  
+    practical work MCQs and important questions.
+  </p>
+</div>
+<div class="card">
+  <b>Social Science</b>
+  <p style="margin-top:5px;">
+    Isme saare MCQs and important questions.
+  </p>
+</div>
+<div class="card">
+  <b>Sanskrit</b>
+  <p style="margin-top:5px;">
+   here is pdf of chapters all questions answers.
+  </p>
+</div>
+<div class="card">
+  <b>English</b>
+  <p style="margin-top:5px;">
+   here is pdf of chapters all questions answers.
+  </p>
+</div>
+<div class="card">
+  <b>Hindi</b>
+  <p style="margin-top:5px;">
+   here is pdf of chapters all questions answers.
+  </p>
+</div>
+<div class="card">
+  <b>Science</b>
+  <p style="margin-top:5px;">
+   here is pdf of chapters all questions answers.
+  </p>
+</div>
+<div class="card">
+  <b>Maths</b>
+  <p style="margin-top:5px;">
+   here is pdf of chapters all questions answers.
+  </p>
+</div>
+<a class="btn" href="https://drive.google.com/drive/folders/15S574IX3vdDEUV-Dn7egxagDPbU0UVm9?usp=sharing">Click To View IT,SST,Sanskrit Note Work Pdf</a>
+<a class="btn" href="https://drive.google.com/drive/folders/1aovuykFvqx4i9cx4UgnpPazpVZoXWmLH">Click To View English Note Work Pdf</a>
+<a class="btn" href="https://drive.google.com/drive/folders/1IKckcvA6IKh-pjI_JZNXEgLPa39C7yy8">Click To View Hindi Note Work Pdf</a>
+<a class="btn" href="https://drive.google.com/drive/folders/1api2HMWbxZziNRdR4GrKBXnsQNCb02j_">Click To View Science Note Work Pdf</a>
+<a class="btn" href="https://drive.google.com/drive/folders/1nvXyLMcAvNGwP5Os_4JyRtIhKyAidB0f">Click To View Maths Note Work Pdf</a>
+</section>
+
+<section id="studentsinfo">
+<h2>👨‍🎓 Students Information</h2>
+<div class="card">
+  <b>All Students Name Roll Number and School Student ID</b>
+  <p style="margin-top:5px;">
+    Isme Sare Students ki Information hai of class 9th A if any student dont know Student ID or Roll Number He Can Check his own Id roll number.
+  </p>
+</div>
+<a class="btn" href="./student_list.pdf">Students Id/Roll Number Click to View</a>
+</section>
+
+<section id="schoolinfo">
+<h2>🏫 School Information</h2>
+<div class="card">
+  <b>About School</b>
+  <p style="margin-top:5px;">
+    School Name - Gandhi Memorial GOVT.S.B.V <br>
+    <br>
+    Name of HOS - Krishan Mohan Tiwari(Principal) <br>
+    <br>
+    Email of HOS - kmtiwari1969@gmail.com <br>
+    <br>
+    School Email - 1105001@delhi.gov.in <br>
+    <br>
+    School Contact - 22323668 <br>
+    <br>
+    Shift - Evening  <br>
+    <br>
+    Address - G.T.Road, Shahadara <br> 
+    <br>
+    Below is School Map
+  </p>
+</div>
+<div class="card"><img src="gmsbvschoolmap.jpg" width="100%"></div>
+</section>
+
+<section id="gallery">
+<h2>🖼 School Images</h2>
+<div class="card"><img src="school1.jpg" width="100%"></div>
+<div class="card"><img src="schoolpicnicbus.jpg" width="100%"></div>
+<div class="card"><img src="school3.jpg" width="100%"></div>
+</section>
+
+<section id="teachers">
+<h2>👨‍🏫 Teachers</h2>
+      <div class="card">Pradeep Rana – Maths</div>
+      <div class="card">Bholanath Pandey – Sanskrit</div>
+      <div class="card">Madhur Gupta – IT</div>
+      <div class="card">Vaishnavi Sharma – Science</div>
+      <div class="card">Seema Gupta – English</div>
+      <div class="card">Abhishek Tripathi – Social Science</div>
+      <div class="card">Indramani Chaurasiya – Hindi</div>
+</section> 
+
+<section id="contact">
+<h2>✉ Contact Form </h2>
+<div class="card" style="padding:25px; border-radius:15px; box-shadow:0 4px 15px rgba(0,0,0,0.1); background:white;">
+  <form style="display:flex; flex-direction:column; gap:15px;">
+
+    <input type="text" placeholder="Your Name" required 
+      style="padding:12px; border-radius:8px; border:1px solid #bbb; font-size:15px;">
+
+    <input type="email" placeholder="Your Email" required 
+      style="padding:12px; border-radius:8px; border:1px solid #bbb; font-size:15px;">
+
+    <textarea rows="4" placeholder="Your Message or doubt If you have any doubt related any subject or something write here we wiil try our best to help you write ur name class roll number and question or doubt" required 
+      style="padding:12px; border-radius:8px; border:1px solid #bbb; font-size:15px; resize:none;"></textarea>
+
+    <button class="btn" type="submit" 
+      style="padding:12px; font-size:16px; font-weight:600; border-radius:10px; background:#1a4ba3; color:white;">
+      Send Message
+    </button>
+
+  </form>
+</div>
+</section>
+
+<footer style="text-align:center;padding:20px;background:#1a4ba3;color:white;">© 2025 G.M.G.S.B.V | TEAM TECH TITANS</footer>
+
+</div>
+
+<script>
+// --- AUTO LOGIN CHECK ---
+window.onload = function(){
+  if(localStorage.getItem("loggedIn") === "true"){
+    document.getElementById("loginOverlay").style.display = 'none';
+    document.getElementById("mainContent").style.display = 'block';
+  }
+};
+
+// --- FIXED LOGIN SCRIPT ---
+function login(){
+  let r = document.getElementById("roll").value.trim().toUpperCase();
+  let p = document.getElementById("pass").value.trim();
+
+  if(r === "GMSBV" && p === "001"){
+    localStorage.setItem("loggedIn", "true"); // REMEMBER LOGIN
+    document.getElementById("loginOverlay").style.display = 'none';
+    document.getElementById("mainContent").style.display = 'block';
+  } else {
+    alert("Invalid ID or Password");
+  }
+}
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  emailjs.init("PPJZ3d6WZ7PAkVc_m");
+  document.querySelector("#contact form").addEventListener("submit", function(e){
+    e.preventDefault();
+    let userName = this.querySelector('input[type="text"]').value;
+    let userEmail = this.querySelector('input[type="email"]').value;
+    let userMessage = this.querySelector('textarea').value;
+
+    emailjs.send("service_0b7zbaf", "template_qrdhwds", {
+      name: userName,
+      email: userEmail,
+      message: userMessage
+    }).then(() => {
+      alert("Message Sent Successfully!");
+      this.reset();
+    }).catch(() => {
+      alert("Failed to send message. Try again.");
+    });
+  });
+</script>
+</body>
+</html>

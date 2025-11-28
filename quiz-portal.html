@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GANDHI MEMORIAL GOVT. S.B.V | Quiz Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Arial,sans-serif}
+body{
+  background:#e9f0ff;
+  color:#222;
+}
+header{
+  background:linear-gradient(135deg,#1a4ba3,#133b82);
+  color:white;
+  text-align:center;
+  padding:25px 10px;
+}
+header h1{font-size:22px;margin-bottom:5px}
+header p{font-size:14px;opacity:0.9}
+header small{font-size:12px;opacity:0.9}
+
+.top-buttons{
+  position:absolute;
+  top:18px;
+  right:18px;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.btn{
+  background:#1a4ba3;
+  color:white;
+  padding:8px 14px;
+  border-radius:8px;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  border:none;
+  font-size:14px;
+}
+.btn:hover{background:#0f3a86;transform:scale(1.03)}
+
+.container{
+  width:90%;
+  max-width:500px;
+  margin:20px auto;
+  background:#ffffff;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,0.1);
+}
+
+h2{margin-bottom:10px;color:#1a4ba3}
+
+input,select,textarea{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+  border-radius:8px;
+  border:1px solid #cbd4f5;
+  font-size:15px;
+}
+
+.quiz-card{
+  background:#f8f9ff;
+  padding:15px;
+  margin:10px 0;
+  border-radius:10px;
+  border:1px solid #d0ddff;
+}
+.quiz-card b{color:#133b82}
+
+#timer{
+  font-weight:600;
+  color:#c21807;
+  margin-top:10px;
+}
+
+.badge{
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:999px;
+  font-size:11px;
+  background:#e0ebff;
+  color:#1a4ba3;
+  margin-left:6px;
+}
+
+/* sections visibility */
+.hidden{display:none}
+
+/* Mobile */
+@media(max-width:600px){
+  header{padding-top:50px}
+  .top-buttons{top:10px;right:10px}
+  header h1{font-size:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="top-buttons">
+    <a href="student-profile.html" class="btn">
+      <span>👤</span> Profile
+    </a>
+    <a href="index.html" class="btn">
+      <span>🏫</span> StudyHub
+    </a>
+  </div>
+  <h1>GANDHI MEMORIAL GOVT. S.B.V</h1>
+  <p>Quiz Companion Portal</p>
+  <small>General quizzes for Student practice • Teacher mode for quiz creation</small>
+</header>
+
+<!-- ROLE SELECT (NO LOGIN) -->
+<div class="container" id="roleBox">
+  <h2>Select Mode</h2>
+  <p>Yahan se choose karo ki aap Student ho ya Teacher.</p>
+  <select id="roleSelect">
+    <option value="student">🎓 Student Mode</option>
+    <option value="teacher">👨‍🏫 Teacher Mode</option>
+  </select>
+  <div id="teacherCodeBox" class="hidden">
+    <input type="password" id="teacherCode" placeholder="Enter Teacher Code">
+  </div>
+  <button class="btn" style="width:100%;margin-top:10px;" onclick="enterPortal()">Enter Quiz Portal</button>
+  <p style="margin-top:8px;font-size:12px;color:#555;">
+    If you Select Teacher Mode then You Need Teacher Code! <b></b>
+  </p>
+</div>
+
+<!-- DASHBOARD -->
+<div class="container hidden" id="dashboard">
+  <h2>Quiz Dashboard <span class="badge" id="roleBadge"></span></h2>
+  <p id="welcomeText" style="margin-bottom:10px;font-size:14px;color:#555;"></p>
+  <button class="btn" style="width:100%;" onclick="showAttemptQuiz()">📝 Attempt General Quiz</button>
+  <button class="btn" id="createBtn" style="width:100%;margin-top:10px;" onclick="showCreateQuiz()">➕ Create / Edit Quiz (Teacher)</button>
+  <button class="btn" style="width:100%;margin-top:10px;background:#2e7d32;" onclick="showResults()">📊 Progress Report</button>
+</div>
+
+<!-- CREATE QUIZ (TEACHER ONLY) -->
+<div class="container hidden" id="createQuiz">
+  <h2>Create / Add Question <span class="badge">Teacher Only</span></h2>
+  <input id="question" placeholder="Question text">
+  <input id="option1" placeholder="Option A">
+  <input id="option2" placeholder="Option B">
+  <input id="option3" placeholder="Option C">
+  <input id="option4" placeholder="Option D">
+  <input id="correct" placeholder="Correct Option Number (1-4)">
+  <button class="btn" style="width:100%;" onclick="addQuiz()">Save Question</button>
+  <button class="btn" style="width:100%;margin-top:8px;background:#555;" onclick="goDashboard()">Back to Dashboard</button>
+  <p style="margin-top:10px;font-size:12px;color:#555;">
+    Note: Questions localStorage me save hote hain, same browser me sab students ke liye available rahenge.[web:3]
+  </p>
+</div>
+
+<!-- ATTEMPT QUIZ -->
+<div class="container hidden" id="attemptQuiz">
+  <h2>General Quiz</h2>
+  <div id="quizContent"></div>
+  <p id="timer">Time: 30s</p>
+  <button class="btn" style="width:100%;" onclick="submitQuiz()">Submit Quiz</button>
+  <button class="btn" style="width:100%;margin-top:8px;background:#555;" onclick="goDashboard()">Back to Dashboard</button>
+</div>
+
+<!-- RESULTS -->
+<div class="container hidden" id="resultPage">
+  <h2>Progress Report</h2>
+  <div id="results"></div>
+  <button class="btn" style="width:100%;margin-top:10px;background:#555;" onclick="goDashboard()">Back to Dashboard</button>
+</div>
+
+<script>
+// ------- ROLE HANDLING (NO LOGIN) -------
+let currentRole = "student";  // "student" or "teacher"
+const TEACHER_CODE = "GMSBVTEACHER"; // yahan apna secret code rakh sakte ho
+
+document.getElementById("roleSelect").addEventListener("change", function(){
+  if(this.value === "teacher"){
+    document.getElementById("teacherCodeBox").classList.remove("hidden");
+  } else {
+    document.getElementById("teacherCodeBox").classList.add("hidden");
+  }
+});
+
+function enterPortal(){
+  const roleSel = document.getElementById("roleSelect").value;
+  if(roleSel === "teacher"){
+    const code = document.getElementById("teacherCode").value.trim();
+    if(code !== TEACHER_CODE){
+      alert("Wrong Teacher Code!");
+      return;
+    }
+    currentRole = "teacher";
+  } else {
+    currentRole = "student";
+  }
+  document.getElementById("roleBox").classList.add("hidden");
+  document.getElementById("dashboard").classList.remove("hidden");
+  setupDashboardText();
+}
+
+function setupDashboardText(){
+  const badge = document.getElementById("roleBadge");
+  const welcome = document.getElementById("welcomeText");
+  const createBtn = document.getElementById("createBtn");
+
+  if(currentRole === "teacher"){
+    badge.textContent = "Teacher Mode";
+    welcome.textContent = "Aap Teacher mode me ho. Yahan se naye questions add kar sakte ho.";
+    createBtn.style.display = "block";
+  } else {
+    badge.textContent = "Student Mode";
+    welcome.textContent = "Aap Student mode me ho. General quiz attempt karke practice kar sakte ho.";
+    createBtn.style.display = "none";
+  }
+}
+
+// ------- NAVIGATION -------
+function hideAllContainers(){
+  document.getElementById("dashboard").classList.add("hidden");
+  document.getElementById("createQuiz").classList.add("hidden");
+  document.getElementById("attemptQuiz").classList.add("hidden");
+  document.getElementById("resultPage").classList.add("hidden");
+}
+
+function goDashboard(){
+  hideAllContainers();
+  document.getElementById("dashboard").classList.remove("hidden");
+}
+
+// ------- CREATE QUIZ (TEACHER) -------
+function showCreateQuiz(){
+  if(currentRole !== "teacher"){
+    alert("Sirf Teacher mode me hi quiz create kar sakte hain.");
+    return;
+  }
+  hideAllContainers();
+  document.getElementById("createQuiz").classList.remove("hidden");
+}
+
+function addQuiz(){
+  let qVal = document.getElementById("question").value.trim();
+  let o1 = document.getElementById("option1").value.trim();
+  let o2 = document.getElementById("option2").value.trim();
+  let o3 = document.getElementById("option3").value.trim();
+  let o4 = document.getElementById("option4").value.trim();
+  let cVal = document.getElementById("correct").value.trim();
+
+  if(!qVal || !o1 || !o2 || !o3 || !o4 || !cVal){
+    alert("Please fill all fields.");
+    return;
+  }
+  if(isNaN(cVal) || cVal < 1 || cVal > 4){
+    alert("Correct option must be between 1 and 4.");
+    return;
+  }
+
+  let quiz = JSON.parse(localStorage.getItem("quiz") || "[]");
+  quiz.push({ q:qVal, o1:o1, o2:o2, o3:o3, o4:o4, c:cVal });
+  localStorage.setItem("quiz", JSON.stringify(quiz));
+  alert("Question Added Successfully!");
+
+  document.getElementById("question").value="";
+  document.getElementById("option1").value="";
+  document.getElementById("option2").value="";
+  document.getElementById("option3").value="";
+  document.getElementById("option4").value="";
+  document.getElementById("correct").value="";
+}
+
+// ------- DEFAULT GENERAL QUESTIONS -------
+const defaultQuestions = [
+  // MATHS
+  {
+    q:"(3x + 2)(4x - 5) ka answer kya hoga?",
+    o1:"12x² - x - 10",
+    o2:"12x² + x - 10",
+    o3:"12x² - 13x - 10",
+    o4:"12x² + 13x - 10",
+    c:"3"
+  },
+  {
+    q:"√(16/81) ka simplified form?",
+    o1:"4/9",
+    o2:"2/9",
+    o3:"4/3",
+    o4:"2/3",
+    c:"1"
+  },
+  // SCIENCE
+  {
+    q:"Photosynthesis me plant CO₂ kahan se lete hain?",
+    o1:"मिट्टी",
+    o2:"जड़ों से",
+    o3:"पत्तियों के रंध्रों से",
+    o4:"फूलों से",
+    c:"3"
+  },
+  {
+    q:"Human heart me कितने chambers hote hain?",
+    o1:"2",
+    o2:"3",
+    o3:"4",
+    o4:"5",
+    c:"3"
+  },
+  // SOCIAL SCIENCE
+  {
+    q:"भारत का संविधान कब लागू हुआ?",
+    o1:"15 अगस्त 1947",
+    o2:"26 जनवरी 1950",
+    o3:"26 नवंबर 1949",
+    o4:"2 अक्टूबर 1952",
+    c:"2"
+  },
+  {
+    q:"गंगा नदी का उद्गम स्थल?",
+    o1:"यमुनोत्री",
+    o2:"गंगोत्री",
+    o3:"अमरकंटक",
+    o4:"महाबलेश्वर",
+    c:"2"
+  },
+  // ENGLISH
+  {
+    q:"'The sun sets in the west' me 'sets' ka meaning?",
+    o1:"उगता है",
+    o2:"डूबता है",
+    o3:"चमकता है",
+    o4:"गर्म होता है",
+    c:"2"
+  },
+  // HINDI
+  {
+    q:"'रामचरितमानस' के रचयिता कौन हैं?",
+    o1:"कबीरदास",
+    o2:"तुलसीदास",
+    o3:"सूरदास",
+    o4:"मीराबाई",
+    c:"2"
+  },
+  // SANSKRIT
+  {
+    q:"संधि विच्छेद: महर्षिः =",
+    o1:"महा + ऋषिः",
+    o2:"मह + ऋषिः",
+    o3:"महा + रिषिः",
+    o4:"महः + ऋषिः",
+    c:"1"
+  },
+  // IT
+  {
+    q:"RAM का full form?",
+    o1:"Random Access Memory",
+    o2:"Read Access Memory",
+    o3:"Run Access Memory",
+    o4:"Random Active Memory",
+    c:"1"
+  },
+  // GENERAL SCIENCE
+  {
+    q:"pH value 7 ka solution?",
+    o1:"Amphoteric",
+    o2:"Acidic",
+    o3:"Basic",
+    o4:"Neutral",
+    c:"4"
+  }
+];
+
+// Agar localStorage me kuch nahi hai to default questions save kar do
+(function initDefaultQuiz(){
+  let existing = JSON.parse(localStorage.getItem("quiz") || "[]");
+  if(existing.length === 0){
+    localStorage.setItem("quiz", JSON.stringify(defaultQuestions));
+  }
+})();
+
+// ------- ATTEMPT QUIZ -------
+let t = 30;
+let timerInterval = null;
+
+function showAttemptQuiz(){
+  hideAllContainers();
+  document.getElementById("attemptQuiz").classList.remove("hidden");
+
+  let quiz = JSON.parse(localStorage.getItem("quiz") || "[]");
+  if(quiz.length === 0){
+    document.getElementById("quizContent").innerHTML = "<p>No questions available.</p>";
+    return;
+  }
+
+  let html = "";
+  quiz.forEach((q,i)=>{
+    html += `
+      <div class="quiz-card">
+        <b>Q${i+1}. ${q.q}</b><br><br>
+        <label><input name="q${i}" type="radio" value="1"> ${q.o1}</label><br>
+        <label><input name="q${i}" type="radio" value="2"> ${q.o2}</label><br>
+        <label><input name="q${i}" type="radio" value="3"> ${q.o3}</label><br>
+        <label><input name="q${i}" type="radio" value="4"> ${q.o4}</label><br>
+      </div>
+    `;
+  });
+  document.getElementById("quizContent").innerHTML = html;
+  startTimer();
+}
+
+// TIMER
+function startTimer(){
+  clearInterval(timerInterval);
+  t = 30;
+  document.getElementById("timer").innerText = "Time: "+t+"s";
+  timerInterval = setInterval(()=>{
+    t--;
+    document.getElementById("timer").innerText = "Time: "+t+"s";
+    if(t <= 0){
+      clearInterval(timerInterval);
+      submitQuiz();
+    }
+  },1000);
+}
+
+// SUBMIT QUIZ
+function submitQuiz(){
+  clearInterval(timerInterval);
+  let quiz = JSON.parse(localStorage.getItem("quiz") || "[]");
+  let score = 0;
+
+  quiz.forEach((q,i)=>{
+    let a = document.querySelector(`input[name="q${i}"]:checked`);
+    if(a && a.value == q.c) score++;
+  });
+
+  localStorage.setItem("result", score);
+  alert("Quiz Submitted! Score: "+score);
+  goDashboard();
+}
+
+// RESULTS
+function showResults(){
+  hideAllContainers();
+  document.getElementById("resultPage").classList.remove("hidden");
+  let last = localStorage.getItem("result");
+  if(last === null){
+    document.getElementById("results").innerHTML = "<h3>No quiz attempted yet.</h3>";
+  } else {
+    document.getElementById("results").innerHTML = "<h3>Your Last Score: "+last+"</h3>";
+  }
+}
+</script>
+
+</body>
+</html>
