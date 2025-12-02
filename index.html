@@ -4,125 +4,287 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>GANDHI MEMORIAL GOVT. S.B.V - StudyHub Web Portal</title>
-<link href="logo.png" rel="stylesheet">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="logo.png">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
-body{background:#e9f0ff;color:#222}
-.card{background:white;padding:20px;margin:15px 0;border-radius:12px;box-shadow:0 3px 12px rgba(0,0,0,.1)}
-.btn{background:#1a4ba3;color:white;padding:10px 18px;border-radius:8px;text-decoration:none;display:inline-block;cursor:pointer;margin-top:10px}
-header{background:linear-gradient(135deg,#1a4ba3,#133b82);color:white;text-align:center;padding:30px;position:relative}
-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;background:#133b82;padding:10px}
-nav a{color:white;text-decoration:none;font-weight:600;font-size:14px}
-section{padding:20px}
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Poppins",sans-serif;
+}
+body{
+  background:#e9f0ff;
+  color:#222;
+}
+
+/* Simple animation */
+.fade-in-up{
+  opacity:0;
+  transform:translateY(8px);
+  animation:fadeInUp .6s ease-out forwards;
+}
+@keyframes fadeInUp{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* Card */
+.card{
+  background:white;
+  padding:20px;
+  margin:15px 0;
+  border-radius:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.1);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 6px 18px rgba(0,0,0,.15);
+}
+
+/* Buttons */
+.btn{
+  background:#1a4ba3;
+  color:white;
+  padding:10px 18px;
+  border-radius:8px;
+  text-decoration:none;
+  display:inline-block;
+  cursor:pointer;
+  margin-top:10px;
+  font-size:14px;
+  border:none;
+  transition:background .2s ease, transform .15s ease, box-shadow .15s ease;
+}
+.btn:hover{
+  background:#0f3a86;
+  transform:translateY(-1px) scale(1.03);
+  box-shadow:0 3px 10px rgba(0,0,0,.2);
+}
+
+/* Header */
+header{
+  background:linear-gradient(135deg,#1a4ba3,#133b82);
+  color:white;
+  text-align:center;
+  padding:30px;
+  position:relative;
+}
+header h1{
+  letter-spacing:.5px;
+}
+header p{
+  margin-top:4px;
+  font-size:14px;
+  opacity:.95;
+}
+
+/* Header right buttons */
+header .top-actions{
+  position:absolute;
+  top:20px;
+  right:20px;
+  display:flex;
+  gap:8px;
+}
+
+/* Nav bar */
+nav{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  background:#133b82;
+  padding:10px;
+}
+nav a{
+  color:white;
+  text-decoration:none;
+  font-weight:500;
+  font-size:13px;
+  padding:6px 10px;
+  border-radius:20px;
+  transition:background .2s ease, transform .15s ease;
+}
+nav a:hover{
+  background:rgba(255,255,255,0.18);
+  transform:translateY(-1px);
+}
+
+section{
+  padding:20px;
+}
+section h2{
+  margin-bottom:8px;
+}
+
+/* Login overlay */
 #mainContent{display:none}
 #loginOverlay{
-  position:fixed;top:0;left:0;width:100%;height:100%;
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
   background:rgba(0,0,0,0.5);
-  display:flex;justify-content:center;align-items:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   z-index:9999;
 }
 #loginBox{
-  background:white;padding:25px;border-radius:15px;
-  width:90%;max-width:360px;
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  width:90%;
+  max-width:360px;
   box-shadow:0 4px 20px rgba(0,0,0,0.2);
   text-align:center;
 }
 #loginBox input{
-  width:100%;padding:10px;margin-top:10px;
-  border:1px solid #ccc;border-radius:6px;
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  border:1px solid #ccc;
+  border-radius:6px;
 }
-.btn:hover{background:#0f3a86;transform:scale(1.05);}
 
 /* Chatbot Styles */
 #chatbot-container{
-  position:fixed;bottom:20px;right:20px;z-index:1000;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:1000;
 }
 #chatbot-toggle{
-  width:60px;height:60px;border-radius:50%;
-  background:#4285f4;color:white;border:none;
-  font-size:24px;cursor:pointer;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:#4285f4;
+  color:white;
+  border:none;
+  font-size:24px;
+  cursor:pointer;
   box-shadow:0 4px 12px rgba(0,0,0,0.3);
   transition:all .3s ease;
 }
 #chatbot-toggle:hover{
-  transform:scale(1.1);
+  transform:scale(1.1) translateY(-2px);
   box-shadow:0 6px 20px rgba(0,0,0,0.4);
 }
 #chatbot-window{
-  display:none;width:350px;height:500px;
-  background:white;border-radius:15px;
+  display:none;
+  width:350px;
+  height:500px;
+  background:white;
+  border-radius:15px;
   box-shadow:0 10px 30px rgba(0,0,0,0.4);
-  overflow:hidden;flex-direction:column;
-  font-family:Poppins,sans-serif;
+  overflow:hidden;
+  flex-direction:column;
 }
 #chatbot-window > div:first-child{
-  background:#4285f4;color:white;
-  padding:15px;display:flex;
-  justify-content:space-between;align-items:center;
+  background:#4285f4;
+  color:white;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 #chatbot-close{
-  background:none;border:none;color:white;
-  font-size:20px;cursor:pointer;
+  background:none;
+  border:none;
+  color:white;
+  font-size:20px;
+  cursor:pointer;
 }
 #chat-messages{
-  flex:1;padding:20px;overflow-y:auto;
-  height:400px;background:#f8f9fa;
+  flex:1;
+  padding:20px;
+  overflow-y:auto;
+  height:400px;
+  background:#f8f9fa;
 }
 #chatbot-window > div:last-child{
-  padding:15px;background:white;
+  padding:15px;
+  background:white;
   border-top:1px solid #eee;
 }
 #chatbot-window > div:last-child > div{
-  display:flex;gap:10px;
+  display:flex;
+  gap:10px;
 }
 #chat-input{
-  flex:1;padding:12px;border:1px solid #ddd;
-  border-radius:25px;outline:none;
-  font-family:Poppins,sans-serif;
+  flex:1;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:25px;
+  outline:none;
 }
 #chat-send{
-  width:45px;height:45px;border-radius:50%;
-  background:#4285f4;color:white;border:none;
-  cursor:pointer;transition:all .3s ease;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:#4285f4;
+  color:white;
+  border:none;
+  cursor:pointer;
+  transition:all .3s ease;
 }
 #chat-send:hover{
-  background:#3367d6;transform:scale(1.05);
+  background:#3367d6;
+  transform:scale(1.05);
 }
+
+/* Chat bubbles */
 .message{margin:10px 0;}
-.message.user div {
-    background: #4285f4 !important;
-    color: white !important;
-    padding: 10px 14px !important;   /* kam padding */
-    border-radius: 18px 18px 6px 18px !important; /* thoda less round */
-    display: inline-block !important;
-    max-width: 85% !important;
-    margin-left: auto !important;
-}
+.message.user div{
+  background:#4285f4 !important;
+  color:white !important;
+  padding:10px 14px !important;
+  border-radius:18px 18px 6px 18px !important;
+  display:inline-block !important;
+  max-width:85% !important;
+  margin-left:auto !important;
+  font-size:14px;
 }
 .message.bot div{
-  background:#e8f0fe;color:#202124;
-  padding:12px;border-radius:18px;
-  margin:5px 0;max-width:80%;
+  background:#e8f0fe;
+  color:#202124;
+  padding:12px;
+  border-radius:18px;
+  margin:5px 0;
+  max-width:80%;
   word-wrap:break-word;
+  font-size:14px;
 }
 .typing{
-  display:flex;align-items:center;gap:8px;
-  padding:12px;background:#e8f0fe;
-  border-radius:18px;max-width:80%;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:12px;
+  background:#e8f0fe;
+  border-radius:18px;
+  max-width:80%;
   color:#202124;
 }
 
-/* Mobile Fixes */
+/* Mobile */
 @media(max-width:600px){
   header{padding:40px 10px;}
   header h1{font-size:20px;}
   header p{font-size:14px;}
-  header div[style*="position:absolute"] a{
+  header .top-actions a{
     padding:8px 14px !important;
     font-size:13px !important;
     gap:4px;border-radius:8px;
   }
-  nav a{font-size:13px;padding:6px 8px;}
+  nav a{font-size:12px;padding:5px 8px;}
   table{font-size:13px;}
   table th,table td{padding:6px !important;}
   #loginBox{width:92%;}
@@ -133,70 +295,82 @@ section{padding:20px}
 
 <!-- LOGIN OVERLAY -->
 <div id="loginOverlay">
-  <div id="loginBox">
+  <div id="loginBox" class="fade-in-up">
     <h2>🔐 Student Login</h2>
-    <input id="roll" type="text" placeholder="Enter ID">
+    <p style="font-size:13px;margin-bottom:6px;">Portal sirf hamare class 9th A ke students ke liye hai.</p>
+    <input id="roll" type="text" placeholder="Enter School ID">
     <input id="pass" type="password" placeholder="Enter Password">
     <button class="btn" onclick="login()" style="width:100%;margin-top:15px;">Login</button>
-    <p style="margin-top:10px;font-size:14px;">Use ID: <b>GMSBV</b> & Password: <b>001</b></p>
+    <p style="margin-top:10px;font-size:13px;">Demo ke liye use karein: <b>ID: GMSBV</b> & <b>Password: 001</b></p>
   </div>
 </div>
 
 <!-- MAIN CONTENT -->
 <div id="mainContent">
 
-<header>
-  <img src="logo.png" width="110" />
+<header class="fade-in-up">
+  <img src="logo.png" width="110" alt="School Logo" />
   <h1>GANDHI MEMORIAL GOVT. S.B.V</h1>
-  <p><strong>StudyHub Web Portal</strong></p>
-  <div style="position:absolute; top:20px; right:20px;">
-    <a href="student-profile.html" class="btn" style="padding:10px 18px; font-size:14px; display:flex; align-items:center; gap:6px; border-radius:10px; transition:0.2s;">
+  <p><strong>StudyHub Web Portal – Class 9th A</strong></p>
+  <div class="top-actions">
+    <a href="student-profile.html" class="btn" style="display:flex; align-items:center; gap:6px; border-radius:10px;">
       <span style="font-size:16px;">👤</span> Your Profile
     </a>
-    <a href="quiz-portal.html" class="btn" style="padding:10px 18px; font-size:14px; display:flex; align-items:center; gap:6px; border-radius:10px; transition:0.2s;">
+    <a href="quiz-portal.html" class="btn" style="display:flex; align-items:center; gap:6px; border-radius:10px;">
       <span style="font-size:16px;">📝</span> Quiz Portal
     </a>
   </div>
 </header>
 
-<nav>
-<a href="#notices">Notices</a>
-<a href="#timetable">Timetable</a>
-<a href="#homework">All Subjects Notes</a>
-<a href="#materials">Notebook</a>
-<a href="#examplepaper">Annual Exam Practice Papers</a>
-<a href="#gallery">School Images</a>
-<a href="#teachers">Teachers</a>
-<a href="#studentsinfo">Information Of Students</a>
-<a href="#schoolinfo">School Info</a>
-<a href="#contact">Contact Form</a>
+<nav class="fade-in-up">
+  <a href="#notices">Notices</a>
+  <a href="#timetable">Timetable</a>
+  <a href="#homework">All Subjects Notes</a>
+  <a href="#materials">Notebook</a>
+  <a href="#examplepaper">Practice Papers</a>
+  <a href="#gallery">School Images</a>
+  <a href="#teachers">Teachers</a>
+  <a href="#studentsinfo">Students Info</a>
+  <a href="#schoolinfo">School Info</a>
+  <a href="#contact">Contact</a>
 </nav>
 
-<section id="notices">
-<h2>📢 School Notices</h2>
-<div class="card">Complete all English Work Copy Checking on 26th Nov!</div>
-<div class="card">Holiday On 25th Nov!</div>
-<div class="card">
-  <b>UNIT TEST II DATE SHEET</b>
-  <p style="margin-top:5px;">
-    29/11/2025 - IT <br><br>
-    01/12/2025 - Sanskrit <br><br>
-    02/12/2025 - Social Science <br><br>
-    03/12/2025 - Science <br><br>
-    04/12/2025 - Maths <br><br>
-    05/12/2025 - Hindi <br><br>
-    06/12/2025 - English <br><br>
-    TIME - 1:00 PM TO 2:00 PM
-  </p>
-</div>
+<section id="notices" class="fade-in-up">
+  <h2>📢 School Notices</h2>
+  <div class="card">
+    📘 <b>English Work</b> – Saare English copy ka kaam <b>26 Nov</b> tak complete karke laana hai.  
+    <br><span style="font-size:13px; opacity:0.8;">Us din copy checking hogi, kisi ka work pending nahi hona chahiye 😄</span>
+  </div>
+  <div class="card">
+    🎉 <b>Holiday Notice</b> – <b>25 Nov</b> ko school closed rahega (Holiday).
+  </div>
+  <div class="card">
+    <b>📝 UNIT TEST – II DATE SHEET</b>
+    <p style="margin-top:5px; line-height:1.6;">
+      29/11/2025 – I.T <br><br>
+      01/12/2025 – Sanskrit <br><br>
+      02/12/2025 – Social Science <br><br>
+      03/12/2025 – Science <br><br>
+      04/12/2025 – Maths <br><br>
+      05/12/2025 – Hindi <br><br>
+      06/12/2025 – English <br><br>
+      ⏰ <b>Time:</b> 1:00 PM – 2:00 PM
+    </p>
+  </div>
 </section>
 
-<section id="timetable">
-  <h2 style="background: url('classtimetable.png') no-repeat left center;
-           background-size: 40px 40px; padding-left: 50px;">Class Timetable</h2>
+<section id="timetable" class="fade-in-up">
+  <h2 style="background:url('classtimetable.png') no-repeat left center;
+             background-size:40px 40px; padding-left:50px;">
+    Class Timetable
+  </h2>
+
+  <p style="font-size:13px;margin-top:5px;opacity:0.85;">
+    Niche pura week ka timetable hai – koi bhi subject miss ho gaya ho to yaha se check kar lo.
+  </p>
 
   <div class="table-wrapper" style="overflow-x:auto; margin-top:15px;">
-    <table style="width:100%; border-collapse:collapse; text-align:center; font-size:15px;">
+    <table style="width:100%; border-collapse:collapse; text-align:center; font-size:15px; background:white;">
       <thead>
         <tr style="background:#1a4ba3; color:white;">
           <th style="padding:8px; border:1px solid #ddd;">Day</th>
@@ -211,7 +385,6 @@ section{padding:20px}
         </tr>
       </thead>
       <tbody>
-        <!-- Monday to Saturday rows (same as tumne diye the) -->
         <tr>
           <td style="padding:8px; border:1px solid #ccc; background:#eef3ff;">Monday</td>
           <td style="padding:8px; border:1px solid #ccc;">Maths</td>
@@ -282,7 +455,7 @@ section{padding:20px}
     </table>
   </div>
 
-  <div class="card">Click Below buttons To View Syllabus</div>
+  <div class="card">Subject wise syllabus dekhne ke liye niche buttons use karo:</div>
   <a class="btn" href="https://share.google/YnEX0Ia7GM5oolFx6">English Syllabus</a>
   <a class="btn" href="https://share.google/nRoPvghaFwcCvE6QS">Hindi Syllabus</a>
   <a class="btn" href="https://share.google/r3423AwWI0da4Ivi9">Maths Syllabus</a>
@@ -291,109 +464,110 @@ section{padding:20px}
   <a class="btn" href="https://share.google/PegkR0Us92HLr82BA">Social Science Syllabus</a>
 </section>
 
-<section id="homework">
-<h2>📘 All Subjects Notes</h2>
-<div class="card">Science – All Chapters Notes</div>
-<div class="card">Social Science – All Chapters Notes</div>
-<div class="card">Maths – All Chapters Notes</div>
-<div class="card">English – All Chapters Notes</div>
-<div class="card">Hindi – All Chapters Notes</div>
-<div class="card">Sanskrit – All Chapters Notes</div>
-<a class="btn" href="https://drive.google.com/drive/folders/1kACsGFiuz1_kl5-4FLgn6gYsO1qe8nJA">Science Notes</a>
-<a class="btn" href="https://drive.google.com/drive/folders/14Hq9uQ0AebkOigF8soe4tnj_4XttRQMa">Social Science Notes</a>
-<a class="btn" href="https://drive.google.com/drive/folders/1FrAs5apQAci4s6CS4T-T4BkAbtLHJo2j">Maths Notes</a>
-<a class="btn" href="https://drive.google.com/drive/folders/1AfCdnLmi-Qh9fRGXsNUFM2PKqVMw9u-L">English Notes</a>
-<a class="btn" href="https://drive.google.com/drive/folders/1wvAVXFG5In7d3eI87bhw-Lyku-YGXe-0">Hindi Notes</a>
-<a class="btn" href="https://drive.google.com/drive/folders/1AqTbWRVPrd31DiqwQYKhTqYmbLywFDJy">Hindi Notes</a>
+<section id="homework" class="fade-in-up">
+  <h2>📘 All Subjects Notes</h2>
+  <div class="card">Science – Har chapter ke important concepts + numericals ke short notes.</div>
+  <div class="card">Social Science – History, Civics, Geography sabhi chapters ka summary notes.</div>
+  <div class="card">Maths – Formulas + examples ke saath notes.</div>
+  <div class="card">English – Prose, poem & grammar ke quick notes.</div>
+  <div class="card">Hindi – सारांश + प्रश्न-उत्तर.</div>
+  <div class="card">Sanskrit – श्लोक, अर्थ aur Q/A.</div>
+  <a class="btn" href="https://drive.google.com/drive/folders/1kACsGFiuz1_kl5-4FLgn6gYsO1qe8nJA">Science Notes</a>
+  <a class="btn" href="https://drive.google.com/drive/folders/14Hq9uQ0AebkOigF8soe4tnj_4XttRQMa">Social Science Notes</a>
+  <a class="btn" href="https://drive.google.com/drive/folders/1FrAs5apQAci4s6CS4T-T4BkAbtLHJo2j">Maths Notes</a>
+  <a class="btn" href="https://drive.google.com/drive/folders/1AfCdnLmi-Qh9fRGXsNUFM2PKqVMw9u-L">English Notes</a>
+  <a class="btn" href="https://drive.google.com/drive/folders/1wvAVXFG5In7d3eI87bhw-Lyku-YGXe-0">Hindi Notes</a>
+  <a class="btn" href="https://drive.google.com/drive/folders/1AqTbWRVPrd31DiqwQYKhTqYmbLywFDJy">Sanskrit Notes</a>
 </section>
 
-<section id="examplepaper">
-<h2>📃 Annual Exam Practice Paper 2025</h2>
-<div class="card">Science – Example Paper Click Below Button to View</div>
-<div class="card">Social Science – Example Paper Click Below Button to View</div>
-<div class="card">Maths – Example Paper Click Below Button to View</div>
-<div class="card">English – Example Paper Click Below Button to View</div>
-<div class="card">Hindi – Example Paper Click Below Button to View</div>
-<div class="card">Sanskrit – Example Paper Click Below Button to View</div>
-<a class="btn" href="https://drive.google.com/file/d/1KKb9raXrZm-mqJMbRRpd3Lu63uZtclpt/view?usp=sharing">Science Ex Paper</a>
-<a class="btn" href="https://drive.google.com/file/d/10bnp8e4xalLwlOBw5qaopbayCCOTg08C/view?usp=sharing">Social Science Ex Paper</a>
-<a class="btn" href="https://drive.google.com/file/d/10UGd_nKexmgR_U4BuPCbAhkCjCrWz0dU/view?usp=sharing">Maths Ex Paper</a>
-<a class="btn" href="https://drive.google.com/file/d/111LZXddUXLkAekG5SZyMTYVNdBSlRzPv/view?usp=sharing">English Ex Paper</a>
-<a class="btn" href="https://drive.google.com/file/d/1WYeG8rJbRJDCu-2nn7P5fnQulRiOPg3D/view?usp=sharing">Hindi Ex Paper</a>
-<a class="btn" href="https://drive.google.com/file/d/1X_wv39XMS0Z6UoLCNtBbei6K3N5Sgzbk/view?usp=sharing">Sanskrit Ex Paper</a>
+<section id="examplepaper" class="fade-in-up">
+  <h2>📃 Annual Exam Practice Paper 2025</h2>
+  <div class="card">Science – Practice paper solve karke apni तैयारी check karo.</div>
+  <div class="card">Social Science – Pattern ke hisaab se banaya gaya sample paper.</div>
+  <div class="card">Maths – Easy + moderate + tricky mix questions.</div>
+  <div class="card">English – Literature + writing + grammar mix.</div>
+  <div class="card">Hindi – Vyakaran + पाठ्यपुस्तक based questions.</div>
+  <div class="card">Sanskrit – Important questions ka sample paper.</div>
+  <a class="btn" href="https://drive.google.com/file/d/1KKb9raXrZm-mqJMbRRpd3Lu63uZtclpt/view?usp=sharing">Science Ex Paper</a>
+  <a class="btn" href="https://drive.google.com/file/d/10bnp8e4xalLwlOBw5qaopbayCCOTg08C/view?usp=sharing">Social Science Ex Paper</a>
+  <a class="btn" href="https://drive.google.com/file/d/10UGd_nKexmgR_U4BuPCbAhkCjCrWz0dU/view?usp=sharing">Maths Ex Paper</a>
+  <a class="btn" href="https://drive.google.com/file/d/111LZXddUXLkAekG5SZyMTYVNdBSlRzPv/view?usp=sharing">English Ex Paper</a>
+  <a class="btn" href="https://drive.google.com/file/d/1WYeG8rJbRJDCu-2nn7P5fnQulRiOPg3D/view?usp=sharing">Hindi Ex Paper</a>
+  <a class="btn" href="https://drive.google.com/file/d/1X_wv39XMS0Z6UoLCNtBbei6K3N5Sgzbk/view?usp=sharing">Sanskrit Ex Paper</a>
 </section>
 
-<section id="materials">
-<h2>📔 Notebook Work</h2>
-<div class="card"><b>IT All Units</b><p style="margin-top:5px;">Isme saare IT ke units cover kiye gaye hain including Unit-1 Unit-2 practical work MCQs and important questions.</p></div>
-<div class="card"><b>Social Science</b><p style="margin-top:5px;">Isme saare MCQs and important questions.</p></div>
-<div class="card"><b>Sanskrit</b><p style="margin-top:5px;">here is pdf of chapters all questions answers.</p></div>
-<div class="card"><b>English</b><p style="margin-top:5px;">here is pdf of chapters all questions answers.</p></div>
-<div class="card"><b>Hindi</b><p style="margin-top:5px;">here is pdf of chapters all questions answers.</p></div>
-<div class="card"><b>Science</b><p style="margin-top:5px;">here is pdf of chapters all questions answers.</p></div>
-<div class="card"><b>Maths</b><p style="margin-top:5px;">here is pdf of chapters all questions answers.</p></div>
-<a class="btn" href="https://drive.google.com/drive/folders/15S574IX3vdDEUV-Dn7egxagDPbU0UVm9?usp=sharing">Click To View IT,SST,Sanskrit Note Work Pdf</a>
-<a class="btn" href="https://drive.google.com/drive/folders/1aovuykFvqx4i9cx4UgnpPazpVZoXWmLH">Click To View English Note Work Pdf</a>
-<a class="btn" href="https://drive.google.com/drive/folders/1IKckcvA6IKh-pjI_JZNXEgLPa39C7yy8">Click To View Hindi Note Work Pdf</a>
-<a class="btn" href="https://drive.google.com/drive/folders/1api2HMWbxZziNRdR4GrKBXnsQNCb02j_">Click To View Science Note Work Pdf</a>
-<a class="btn" href="https://drive.google.com/drive/folders/1nvXyLMcAvNGwP5Os_4JyRtIhKyAidB0f">Click To View Maths Note Work Pdf</a>
+<section id="materials" class="fade-in-up">
+  <h2>📔 Notebook Work</h2>
+  <div class="card"><b>I.T – All Units</b><p style="margin-top:5px;">Saare IT units + practical work + MCQs + important questions ek jagah.</p></div>
+  <div class="card"><b>Social Science</b><p style="margin-top:5px;">MCQs & short/long important questions ka compiled work.</p></div>
+  <div class="card"><b>Sanskrit</b><p style="margin-top:5px;">Chapters ke सारे प्रश्न उत्तर PDF form me.</p></div>
+  <div class="card"><b>English</b><p style="margin-top:5px;">Chapters ke Q/A + word meanings.</p></div>
+  <div class="card"><b>Hindi</b><p style="margin-top:5px;">Chapters ke प्रश्न उत्तर + reference to context.</p></div>
+  <div class="card"><b>Science</b><p style="margin-top:5px;">Definitions, numericals aur important diagrams ke saath.</p></div>
+  <div class="card"><b>Maths</b><p style="margin-top:5px;">Class work + homework + examples ka notebook work.</p></div>
+  <a class="btn" href="https://drive.google.com/drive/folders/15S574IX3vdDEUV-Dn7egxagDPbU0UVm9?usp=sharing">IT / SST / Sanskrit Notebook PDF</a>
+  <a class="btn" href="https://drive.google.com/drive/folders/1aovuykFvqx4i9cx4UgnpPazpVZoXWmLH">English Notebook PDF</a>
+  <a class="btn" href="https://drive.google.com/drive/folders/1IKckcvA6IKh-pjI_JZNXEgLPa39C7yy8">Hindi Notebook PDF</a>
+  <a class="btn" href="https://drive.google.com/drive/folders/1api2HMWbxZziNRdR4GrKBXnsQNCb02j_">Science Notebook PDF</a>
+  <a class="btn" href="https://drive.google.com/drive/folders/1nvXyLMcAvNGwP5Os_4JyRtIhKyAidB0f">Maths Notebook PDF</a>
 </section>
 
-<section id="studentsinfo">
-<h2>👨‍🎓 Students Information</h2>
-<div class="card">
-  <b>All Students Name Roll Number and School Student ID</b>
-  <p style="margin-top:5px;">Isme Sare Students ki Information hai of class 9th A if any student dont know Student ID or Roll Number He Can Check his own Id roll number.</p>
-</div>
-<a class="btn" href="./student_list.pdf">Students Id/Roll Number Click to View</a>
+<section id="studentsinfo" class="fade-in-up">
+  <h2>👨‍🎓 Students Information</h2>
+  <div class="card">
+    <b>All Students Name, Roll Number & School ID</b>
+    <p style="margin-top:5px;">Is PDF me class 9th A ke saare students ki जानकारी hai.  
+    Jisko apna Student ID ya roll number याद nahi ho, yaha se dekh sakta hai.</p>
+  </div>
+  <a class="btn" href="./student_list.pdf">Students ID / Roll Number – Click to View</a>
 </section>
 
-<section id="schoolinfo">
-<h2>🏫 School Information</h2>
-<div class="card">
-  <b>About School</b>
-  <p style="margin-top:5px;">
-    School Name - Gandhi Memorial GOVT.S.B.V <br><br>
-    Name of HOS - Krishan Mohan Tiwari(Principal) <br><br>
-    Email of HOS - kmtiwari1969@gmail.com <br><br>
-    School Email - 1105001@delhi.gov.in <br><br>
-    School Contact - 22323668 <br><br>
-    Shift - Evening  <br><br>
-    Address - G.T.Road, Shahadara <br><br>
-    Below is School Map
-  </p>
-</div>
-<div class="card"><img src="gmsbvschoolmap.jpg" width="100%"></div>
+<section id="schoolinfo" class="fade-in-up">
+  <h2>🏫 School Information</h2>
+  <div class="card">
+    <b>About School</b>
+    <p style="margin-top:5px;">
+      School Name – Gandhi Memorial GOVT. S.B.V <br><br>
+      Name of HOS – Krishan Mohan Tiwari (Principal) <br><br>
+      Email of HOS – kmtiwari1969@gmail.com <br><br>
+      School Email – 1105001@delhi.gov.in <br><br>
+      School Contact – 22323668 <br><br>
+      Shift – Evening  <br><br>
+      Address – G.T. Road, Shahadara <br><br>
+      Below is school map for exact location.
+    </p>
+  </div>
+  <div class="card"><img src="gmsbvschoolmap.jpg" width="100%" alt="School Map"></div>
 </section>
 
-<section id="gallery">
-<h2>🖼 School Images</h2>
-<div class="card"><img src="school1.jpg" width="100%"></div>
-<div class="card"><img src="schoolpicnicbus.jpg" width="100%"></div>
-<div class="card"><img src="school3.jpg" width="100%"></div>
+<section id="gallery" class="fade-in-up">
+  <h2>🖼 School Images</h2>
+  <div class="card"><img src="school1.jpg" width="100%" alt="School Image 1"></div>
+  <div class="card"><img src="schoolpicnicbus.jpg" width="100%" alt="School Picnic"></div>
+  <div class="card"><img src="school3.jpg" width="100%" alt="School Image 3"></div>
 </section>
 
-<section id="teachers">
-<h2>👨‍🏫 Teachers</h2>
-<div class="card">Pradeep Rana – Maths</div>
-<div class="card">Bholanath Pandey – Sanskrit</div>
-<div class="card">Madhur Gupta – IT</div>
-<div class="card">Vaishnavi Sharma – Science</div>
-<div class="card">Seema Gupta – English</div>
-<div class="card">Abhishek Tripathi – Social Science</div>
-<div class="card">Indramani Chaurasiya – Hindi</div>
+<section id="teachers" class="fade-in-up">
+  <h2>👨‍🏫 Teachers</h2>
+  <div class="card">Pradeep Rana – Maths</div>
+  <div class="card">Bholanath Pandey – Sanskrit</div>
+  <div class="card">Madhur Gupta – IT</div>
+  <div class="card">Vaishnavi Sharma – Science</div>
+  <div class="card">Seema Gupta – English</div>
+  <div class="card">Abhishek Tripathi – Social Science</div>
+  <div class="card">Indramani Chaurasiya – Hindi</div>
 </section>
 
-<section id="contact">
-<h2>✉ Contact Form </h2>
-<div class="card" style="padding:25px; border-radius:15px; box-shadow:0 4px 15px rgba(0,0,0,0.1); background:white;">
-  <form style="display:flex; flex-direction:column; gap:15px;">
-    <input type="text" placeholder="Your Name" required style="padding:12px; border-radius:8px; border:1px solid #bbb; font-size:15px;">
-    <input type="email" placeholder="Your Email" required style="padding:12px; border-radius:8px; border:1px solid #bbb; font-size:15px;">
-    <textarea rows="4" placeholder="Your Message or doubt..." required style="padding:12px; border-radius:8px; border:1px solid #bbb; font-size:15px; resize:none;"></textarea>
-    <button class="btn" type="submit" style="padding:12px; font-size:16px; font-weight:600; border-radius:10px; background:#1a4ba3; color:white;">Send Message</button>
-  </form>
-</div>
+<section id="contact" class="fade-in-up">
+  <h2>✉ Contact Form </h2>
+  <div class="card" style="padding:25px; border-radius:15px; box-shadow:0 4px 15px rgba(0,0,0,0.1); background:white;">
+    <form style="display:flex; flex-direction:column; gap:15px;">
+      <input type="text" placeholder="Your Name" required style="padding:12px; border-radius:8px; border:1px solid #bbb; font-size:15px;">
+      <input type="email" placeholder="Your Email" required style="padding:12px; border-radius:8px; border:1px solid #bbb; font-size:15px;">
+      <textarea rows="4" placeholder="Your message or doubt..." required style="padding:12px; border-radius:8px; border:1px solid #bbb; font-size:15px; resize:none;"></textarea>
+      <button class="btn" type="submit" style="padding:12px; font-size:16px; font-weight:600; border-radius:10px; background:#1a4ba3; color:white;">Send Message</button>
+    </form>
+  </div>
 </section>
 
 <footer style="text-align:center;padding:20px;background:#1a4ba3;color:white;">© 2025 G.M.G.S.B.V | TEAM TECH TITANS</footer>
@@ -402,20 +576,23 @@ section{padding:20px}
 
 <!-- CHATBOT CONTAINER -->
 <div id="chatbot-container">
-  <button id="chatbot-toggle" title="Ask AI Bot">💬</button>
+  <button id="chatbot-toggle" title="Ask StudyHub Helper">💬</button>
   <div id="chatbot-window">
     <div>
-      <h3>Studyhub AI Bot</h3>
+      <h3>StudyHub Helper Bot</h3>
       <button id="chatbot-close">×</button>
     </div>
     <div id="chat-messages">
       <div class="message bot">
-        <div>Hello Buddy I am here to help you, What can I do for you? But Sorry to inform you that i am not working properly soon i will heal!</div>
+        <div>
+          Namaste! 😊 Main <b>StudyHub helper bot</b> hu.  
+          Aap mujhse school notices, timetable, notes, teachers ya exam ke baare me pooch sakte ho.
+        </div>
       </div>
     </div>
     <div>
       <div>
-        <input type="text" id="chat-input" placeholder="Ask anything About School..">
+        <input type="text" id="chat-input" placeholder="Ask anything about our school..">
         <button id="chat-send">➤</button>
       </div>
     </div>
@@ -438,7 +615,7 @@ function login(){
     document.getElementById("loginOverlay").style.display = 'none';
     document.getElementById("mainContent").style.display = 'block';
   } else {
-    alert("Invalid ID or Password");
+    alert("Galat ID ya Password. Dubara check karo 🙂");
   }
 }
 </script>
@@ -465,15 +642,15 @@ document.querySelector("#contact form").addEventListener("submit", function(e){
 });
 </script>
 
-<!-- AI CHATBOT SCRIPT (FIXED) -->
+<!-- AI CHATBOT SCRIPT (CLEANED) -->
 <script type="module">
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai@latest";
 
-const API_KEY = "AIzaSyB6Q6YeCLr8WKDloaAYPW9WUYw3wjpGc24";
+const API_KEY = "YOUR_GEMINI_API_KEY_HERE"; // yaha apni key daalna (public repo me mat chhodna)
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ 
-    model: "gemini-3-pro-preview",
-    systemInstruction: "Tum Gandhi Memorial Govt S.B.V (GMSBV) school ka AI assistant ho. Hindi mein jawab do. School timetable, unit test dates (29 Nov se 6 Dec), teachers list, notes links, syllabus, contact details batao. Login: GMSBV/001"
+  model: "gemini-1.5-flash", // fast model exam project ke liye enough hai
+  systemInstruction: "Tum Gandhi Memorial Govt S.B.V (GMSBV) school ka AI assistant ho. Simple Hindi/Hinglish me jawab do. School timetable, unit test dates (29 Nov se 6 Dec), teachers list, notes links, syllabus, contact details batao. Login: GMSBV/001."
 });
 
 const toggleBtn = document.getElementById('chatbot-toggle');
@@ -496,9 +673,38 @@ toggleBtn.onclick = () => {
 closeBtn.onclick = () => { windowEl.style.display = 'none'; };
 
 sendBtn.onclick = sendMessage;
-inputEl.onkeypress = (e) => {
-  if (e.key === 'Enter') sendMessage();
-};
+inputEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    sendMessage();
+  }
+});
+
+function addMessage(sender, text) {
+  const wrapper = document.createElement('div');
+  wrapper.className = `message ${sender}`;
+  const bubble = document.createElement('div');
+  bubble.textContent = text;
+  wrapper.appendChild(bubble);
+  messagesEl.appendChild(wrapper);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+function showTypingIndicator() {
+  typingIndicator = document.createElement('div');
+  typingIndicator.className = 'message bot typing';
+  const inner = document.createElement('div');
+  inner.textContent = 'Soch raha hu...';
+  typingIndicator.appendChild(inner);
+  messagesEl.appendChild(typingIndicator);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+function removeTypingIndicator() {
+  if (typingIndicator) {
+    typingIndicator.remove();
+    typingIndicator = null;
+  }
+}
 
 async function sendMessage() {
   const message = inputEl.value.trim();
@@ -514,46 +720,18 @@ async function sendMessage() {
     const text     = await response.text();
     removeTypingIndicator();
     addMessage('bot', text);
-} catch (error) {
-  console.error('Gemini error:', error);  // details console me
-  let msg = 'Kuch technical problem ho gayi. Thodi der baad try karo.';
+  } catch (error) {
+    console.error('Gemini error:', error);
+    removeTypingIndicator();
+    let msg = 'Kuch technical problem ho gayi. Thodi der baad try karo.';
 
-  // agar response code mila ho to thoda clear bata sakte ho
-  if (error.status === 401) {
-    msg = 'API key sahi nahi hai ya expire ho gayi hai.';
-  } else if (error.status === 429) {
-    msg = 'Aaj ke liye limit khatam ho gayi, thodi der baad dubara try karo.';
-  }
+    if (error.status === 401) {
+      msg = 'API key sahi nahi hai ya expire ho gayi hai.';
+    } else if (error.status === 429) {
+      msg = 'Aaj ke liye limit khatam ho gayi lagti hai, baad me try karna.';
+    }
 
-  messagesEl.removeChild(typing);
-  addMessage('bot', msg);
-}
-
-}
-
-function addMessage(sender, text) {
-  const wrapper = document.createElement('div');
-  wrapper.className = `message ${sender}`;
-  const bubble = document.createElement('div');
-  bubble.textContent = text;   // yahin se text clean dikh raha hai
-  wrapper.appendChild(bubble);
-  messagesEl.appendChild(wrapper);
-  messagesEl.scrollTop = messagesEl.scrollHeight;
-}
-
-function showTypingIndicator() {
-  typingIndicator = document.createElement('div');
-  typingIndicator.className = 'message bot typing';
-  const inner = document.createElement('div');
-  inner.textContent = 'Thinking...';
-  typingIndicator.appendChild(inner);
-  messagesEl.appendChild(typingIndicator);
-  messagesEl.scrollTop = messagesEl.scrollHeight;
-}
-function removeTypingIndicator() {
-  if (typingIndicator) {
-    typingIndicator.remove();
-    typingIndicator = null;
+    addMessage('bot', msg);
   }
 }
 </script>
